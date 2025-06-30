@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Web.APIs.Models;
+using Web.APIs.Repositories;
 
 namespace Web.APIs
 {
@@ -18,6 +19,8 @@ namespace Web.APIs
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
