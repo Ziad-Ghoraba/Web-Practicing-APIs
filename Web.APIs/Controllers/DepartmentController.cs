@@ -50,17 +50,22 @@ namespace Web.APIs.Controllers
             return CreatedAtAction("GetById" , new { id = department.Id }, department);
         }
 
-        //[HttpPut]
-        //public IActionResult Update()
-        //{
-        //    return ();
-        //}
+        [HttpPut("{id:int}")]
+        public IActionResult Update(int id, Department department)
+        {
+            Department? departmentFromDb =
+                _context.Departments.FirstOrDefault(d => d.Id == id);
+            if (departmentFromDb == null)
+                return NotFound("Department Not Found");
 
-        //[HttpDelete]
-        //public IActionResult Delete()
-        //{
-        //    return ();
-        //}
+            departmentFromDb.Name = department.Name;
+            departmentFromDb.ManagerName = department.ManagerName;
+            _context.SaveChanges();
+
+            return NoContent();
+
+        }
+
 
     }
 }
