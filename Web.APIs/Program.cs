@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Web.APIs.Models;
+
 namespace Web.APIs
 {
     public class Program
@@ -9,13 +12,21 @@ namespace Web.APIs
 
             // Add services to the container.
 
+            #region Add services to DI container
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+            #endregion
 
+            var app = builder.Build(); 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
