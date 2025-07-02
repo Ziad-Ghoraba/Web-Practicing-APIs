@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using Web.APIs.Models;
 using Web.APIs.Repositories;
 
@@ -21,6 +22,12 @@ namespace Web.APIs
             });
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            //builder.Services.AddControllers().AddJsonOptions(x =>
+            //{
+            //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            //});
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

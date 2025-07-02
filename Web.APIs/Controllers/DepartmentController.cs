@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Web.APIs.DTO;
 using Web.APIs.Models;
 
 namespace Web.APIs.Controllers
@@ -13,6 +15,23 @@ namespace Web.APIs.Controllers
         public DepartmentController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("Count")]
+        public ActionResult<List<DepartmentWithEmployeeCountDTO>> GetCount()
+        {
+            IEnumerable<Department> departments = _context.Departments.Include(d => d.Employees).ToList();
+            List<DepartmentWithEmployeeCountDTO> DTOs = new List<DepartmentWithEmployeeCountDTO>();
+            foreach(Department department in departments)
+            {
+                DepartmentWithEmployeeCountDTO dto = new DepartmentWithEmployeeCountDTO();
+                dto.NumberOfEmployees = department.Employees.Count();
+                dto.Name = department.Name;
+                dto.Id = department.Id;
+                DTOs.Add(dto);
+            }
+            return DTOs;
+
         }
 
         [HttpGet]

@@ -10,5 +10,7 @@ namespace Web.APIs.Models
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
     }
 }
