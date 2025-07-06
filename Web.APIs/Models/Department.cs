@@ -1,4 +1,6 @@
-﻿namespace Web.APIs.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Web.APIs.Models
 {
     public class Department
     {
@@ -8,6 +10,7 @@
 
         public string? ManagerName { get; set; }
 
+        [JsonIgnore]
         public List<Employee> Employees { get; set; }
     }
 }

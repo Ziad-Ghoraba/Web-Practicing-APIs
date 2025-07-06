@@ -29,10 +29,21 @@ namespace Web.APIs
             //});
 
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin();
+                });
+            });
 
             #endregion
 
@@ -50,6 +61,10 @@ namespace Web.APIs
 
 
             app.MapControllers();
+
+            app.UseStaticFiles(); // To Use HTML pages
+
+            app.UseCors("MyPolicy");
 
             app.Run();
         }
