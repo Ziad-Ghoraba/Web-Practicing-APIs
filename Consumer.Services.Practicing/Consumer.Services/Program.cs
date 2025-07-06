@@ -8,11 +8,15 @@ namespace Consumer.Services
         static async Task Main(string[] args)
         {
             HttpClient client = new HttpClient();
-            Department department = await client.GetFromJsonAsync<Department>("https://localhost:7068/api/Department/1");
-
-            Console.WriteLine(department.id);
-            Console.WriteLine(department.name);
-            Console.WriteLine(department.managerName);
+            GeneralResponse generalResponse = await client.GetFromJsonAsync<GeneralResponse>("https://localhost:7068/api/Category/2");
+            if(generalResponse.IsSuccess)
+            {
+                Console.WriteLine(generalResponse.Data);
+            }
+            else
+            {
+                Console.WriteLine(generalResponse.Data);
+            }
 
         }
     }
