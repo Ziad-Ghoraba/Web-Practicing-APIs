@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.APIs.DTO;
 using Web.APIs.Models;
@@ -15,6 +16,7 @@ namespace Web.APIs.Controllers
             _context = context;
         }
         [HttpGet("{id:int}")]
+        [Authorize]
         public IActionResult Get(int id)
         {
             Employee e = _context.Employees.FirstOrDefault(e => e.Id == id);

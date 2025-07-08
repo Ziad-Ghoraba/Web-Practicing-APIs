@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web.APIs.DTO;
@@ -34,7 +35,8 @@ namespace Web.APIs.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("all")]
+        [Authorize]
         public IActionResult DisplayAll()
         {
             IEnumerable<Department> departments = _context.Departments.ToList();
